@@ -13,42 +13,40 @@ pip install scikit-learn scikit-image scipy  eventlet flask-socketio seaborn pan
 ```
 Tensor flow not available through pip for some reason. Install directly using wheels from [here](https://pypi.org/project/tensorflow/#files)
 
+# Objective
 **Finding Lane Lines on the Road**
 
 The goals / steps of this project are the following:
-* Make a pipeline that finds lane lines on the road
+* Make a pipeline that finds lane lines on the road and visualize it.
 * Reflect on your work in a written report
-
-
-[//]: # (Image References)
-
-[image1]: ./examples/grayscale.jpg "Grayscale"
 
 ---
 
-### Reflection
+# Reflection
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
+The Image processing pipleine in this project involves segmenting the given image to get the region of interest, then processing the image to identify lanes and lastly writing a function to overlay the lanes on the image.     
+  
+*Segmentation* : The region of interest can be any kind of polygon based on your application. A quadrangle worked best for this application.     
+*Processing* : The image is first converted to gray scale, then run through a edge detector algorithm and lastly run through a line identifying algorithm.      
+*Curve Fitting* : The lane lines are used to fit a polynomial curve.     
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
 
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
+![lanes_1](https://user-images.githubusercontent.com/22652444/103008707-8d228400-4503-11eb-90c4-04929912ccbb.PNG)
 
-![alt text][image1]
-
+![lanes_2](https://user-images.githubusercontent.com/22652444/103008797-ac211600-4503-11eb-9be3-94d897bc2342.PNG)
+     
+Modifications to the draw_line() function:             
+* Need to segment the left and right lane. I found that by using the center line of the image, you can segment the left and right lanes. Alternatively the slope information of the lines can also be used.
+* The points that form the lane lines can be fit into a higher order curve. This curve can be extrapolated to get a more continuous line.
 
 ### 2. Identify potential shortcomings with your current pipeline
 
-
-One potential shortcoming would be what would happen when ... 
-
-Another shortcoming could be ...
-
+With the limited time and scope of the project, this algorithm will work on straight lines and where the car is driving in the middle of two lanes. Detecting horizontal lines, lane crossings, lanes in peak traffic or different light conditions are part of the future work.
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
+As future work, to improve the algorithm we can     
+* Segment the Region of Interest, left and right lanes more smartly and not by hardcoding image vertices. Other scene or sensor information can be used for this.
+* It would be better to use a higher order polynomial for curved lane lines. Need more careful parameter tuning for this to work. The current code facilitates this with `poly_order`.
