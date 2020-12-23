@@ -1,10 +1,17 @@
 # **Finding Lane Lines on the Road** 
 
-## Writeup Template
+# Setup
+       
+I understand how virtual environments help battling system dependencies but I would encourage users to understand these version dependencies and set up their workflow.
+For python 3.8 on a windows 64 bit system, these should help         
+        
+* Install 64 bit python because of a lot of packages are not available in 32 bit version 
 
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
-
----
+```
+python -m pip install --upgrade pip 
+pip install scikit-learn scikit-image scipy  eventlet flask-socketio seaborn pandas ffmpeg imageio PyQt5 moviepy opencv-python requests keras jupyterlabPyQt5 
+```
+Tensor flow not available through pip for some reason. Install directly using wheels from [here](https://pypi.org/project/tensorflow/#files)
 
 **Finding Lane Lines on the Road**
 
